@@ -1,11 +1,14 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import ReactDOM from 'react-dom';
+import Homepage from './components/Homepage'
+
+//import Homepage from './components/Homepage'
 
 function App() {
+  
   return (
-    <div className="App">
-     <h1>Contact</h1>
+    <div >
+     <Homepage/>
     </div>
   );
 }
