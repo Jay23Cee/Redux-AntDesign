@@ -45,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "typesafe-actions": "^5.1.0",
     "webpack": "^4.44.2",
     "webpack-cli": "^4.5.0"
   }
