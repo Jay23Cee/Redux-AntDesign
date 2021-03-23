@@ -1,5 +1,5 @@
 import {Books} from './types';
-import { Constants, DemoActions, IDemoState } from './types';
+import { Constants, BookActions,BookState } from './types';
 
 
 const init: Books = {
@@ -7,16 +7,16 @@ const init: Books = {
   title:[],
   author:[],
   list:[],
-  loading: false,
+
 
 };
 
-export function demoReducer(state: Books = init, action: DemoActions): Books {
+export function bookReducer(state: Books = init, action: BookActions): Books {
 
     switch (action.type) {
-        case Constants.ADD_ITEM:
+        case Constants.EDIT_BOOK:
           return {...state, list: [...state.list, action.payload.item]};
-        case Constants.SET_LOADING:
+        case Constants.REMOVE_BOOK:
             return {...state, ...action.payload};
         default:
           return state;

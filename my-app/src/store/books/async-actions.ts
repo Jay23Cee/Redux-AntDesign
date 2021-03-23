@@ -1,12 +1,12 @@
 import { Dispatch } from 'redux';
 import * as actions from './actions';
-import { DemoActions } from './types';
+import { BookActions } from './types';
 
 function sleep(timeout: number) {
     return new Promise<void>((resolve) => setTimeout(() => resolve(), timeout));
 }
 
-export async function addItemAsync(dispatch: Dispatch<DemoActions>, item: string) {
+export async function addItemAsync(dispatch: Dispatch<BookActions>, item: string) {
     dispatch(actions.setLoading(true));
 
     await sleep(1000);

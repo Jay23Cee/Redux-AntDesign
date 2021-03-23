@@ -1,6 +1,6 @@
 import { combineReducers, createStore} from 'redux';
-import {demoReducer} from './demo/reducer';
-import {Books} from './demo/types'
+import {bookReducer} from './books/reducer';
+import {Books} from './books/types'
 
 
 export interface IRootState {
@@ -11,7 +11,7 @@ export interface IRootState {
 
 const store = createStore<IRootState, any,any,any>(
     combineReducers({
-        demo: demoReducer
+        demo: bookReducer
     })
 )
 

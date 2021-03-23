@@ -5,8 +5,8 @@ import {IRootState} from './store'
 import { connect } from 'react-redux'
 
 import { Dispatch } from 'redux';
-import * as asyncactions from './store/demo/async-actions';
-import { DemoActions } from './store/demo/types';
+import * as asyncactions from './store/books/async-actions';
+import { BookActions } from './store/books/types';
 
 
 //import Homepage from './components/Homepage'
@@ -21,11 +21,11 @@ import { DemoActions } from './store/demo/types';
 // }
 
 const mapStateToProps = ({ demo }: IRootState) => {
-  const { list, loading } = demo;
-  return { list, loading };
+  const { list, title, author } = demo;
+  return { list, title,author };
 }
 
-const mapDispatcherToProps = (dispatch: Dispatch<DemoActions>) => {
+const mapDispatcherToProps = (dispatch: Dispatch<BookActions>) => {
   return {
     addItem: (item: string) => asyncactions.addItemAsync(dispatch, item)
   }
@@ -52,17 +52,21 @@ class App extends React.Component<ReduxType, IState> {
   }
 
   public render() {
-    const { list, loading } = this.props;
-
-    return (
-      <div style={{margin: '20px'}}>
-        <input value={this.state.inputText} onChange={this.onInputChange}/>
-        <button onClick={this.onAddClick}>Add</button>
-        {loading && <div>Loading...</div>}
-        <ul>
-          {list.map(l => <li key={l}>{l}</li>)}
-        </ul>
-      </div>
+    const { list, title, author } = this.props;
+  return (
+    
+    <div >
+     <Homepage/>
+    </div>
+    // return (
+    //   <div style={{margin: '20px'}}>
+    //     <input value={this.state.inputText} onChange={this.onInputChange}/>
+    //     <button onClick={this.onAddClick}>Add</button>
+    //     {loading && <div>Loading...</div>}
+    //     <ul>
+    //       {list.map(l => <li key={l}>{l}</li>)}
+    //     </ul>
+    //   </div>
     );
   }
 }
