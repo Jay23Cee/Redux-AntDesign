@@ -4,14 +4,6 @@ import * as actions from './actions'
 
 export type BookActions = ActionType<typeof actions>;
 
-export interface Books {
-
-    list: string[],
-    title: string[],
-    author: string[],
-
-
-}
 
 export interface BookState {
     list: string[],
