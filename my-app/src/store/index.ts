@@ -1,19 +1,16 @@
-import { combineReducers, createStore} from 'redux';
-import {bookReducer} from './books/bookReducer';
-import {Books} from './books/types'
+import {createStore, applyMiddleware, combineReducers} from"redux"
 
+import {bookReducer} from "../store/books/bookReducer";
 
-export interface IRootState {
-    demo: Books
-}
+import thunk from"redux-thunk";
 
+export const rootReducer = combineReducers({
+    books: bookReducer,
+})
 
+export type AppState = ReturnType<typeof rootReducer>
 
-const store = createStore<IRootState, any,any,any>(
-    combineReducers({
-        demo: bookReducer
-    })
-)
+export const store = createStore(rootReducer, applyMiddleware(thunk))
 
 
 export default store;
