@@ -1,5 +1,5 @@
 import { combineReducers, createStore} from 'redux';
-import {bookReducer} from './books/reducer';
+import {bookReducer} from './books/bookReducer';
 import {Books} from './books/types'
 
 
