@@ -44,3 +44,5 @@ const bookReducer =(state =bookReducerDefaultState, action: BookActionTypes): Bo
   }
 
 }
+
+export {bookReducer}
