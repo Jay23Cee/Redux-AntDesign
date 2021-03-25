@@ -1,6 +1,6 @@
 import {createStore, applyMiddleware, combineReducers} from"redux"
 
-import {bookReducer} from "../store/books/bookReducer";
+import {bookReducer} from "./books/bookReducer";
 
 import thunk from"redux-thunk";
 
