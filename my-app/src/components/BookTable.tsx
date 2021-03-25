@@ -1,13 +1,87 @@
 import React, { useState } from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form, Typography } from 'antd';
 import {Books} from '../store/books/books'
+import {AppState} from '../store/store';
+import {connect} from 'react-redux';
+import {AppAction} from '../store/books/actionType';
+import {ThunkDispatch} from "redux-thunk";
+import * as action from "../store/books/bookAction";
+import {bindActionCreators} from 'redux';
+import { ProgressPlugin } from 'webpack';
 
-interface Item {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
+
+interface BookTableProps{
+  title?: string;
+  author?: string;
+  date?:string;
 }
+
+interface BookTableState {}
+
+type Props = BookTableProps & LinkStateProps & LinkDispatchProps;
+
+
+export class BookTable extends React.Component<Props, BookTableState>{
+  onEdit = (book: Books) => {
+    this.props.startEditBook(book);
+  };
+
+
+
+  render(){
+    const {booking} = this.props
+    return(
+      <div>
+        <h1>Books Page</h1>
+        <div>
+          {booking.map(book => (
+            <div>
+              <p>{book.title}</p>
+              <p>{book.author}</p>
+              <p>{book.date}</p>
+            </div>
+          ))}
+
+
+      </div>
+      </div>
+
+    );
+  }
+
+}
+
+
+interface LinkStateProps {
+  booking:Books[];
+}
+
+interface LinkDispatchProps{
+  startEditBook: (book : Books) => void;
+}
+
+const mapStateToProps = (
+  state: AppState,
+  ownProps: BookTableProps,
+
+): LinkStateProps => ({
+  booking: state.books
+})
+
+
+const mapDispatchToProps=(
+  dispatch : ThunkDispatch<any,any,AppAction>,
+  ownprops: BookTableProps
+): LinkDispatchProps => ({
+  startEditBook:  bindActionCreators(action.startEditBook, dispatch),
+})
+
+
+
+
+///////////////////////////////////////////////
+/////////////BELOW THIS LINE IS ANT DESIGN/////
+///////////////////////////////////////////////
 
 const originData: Books[] = [];
 for (let i = 0; i < 100; i++) {
@@ -23,7 +97,7 @@ interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
   dataIndex: string;
   title: any;
   inputType: 'number' | 'text';
-  record: Item;
+  record: Books;
   index: number;
   children: React.ReactNode;
 }
@@ -180,4 +254,4 @@ const EditableTable = () => {
 };
 
 
-export default EditableTable
+export default connect(mapStateToProps, mapDispatchToProps) (BookTable)
