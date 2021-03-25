@@ -13,12 +13,12 @@ import ActionButton from "antd/lib/modal/ActionButton";
 
 
 const bookReducerDefaultState: Books[] =[];
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 10; i++) {
   bookReducerDefaultState.push({
     key: i.toString(),
     title: `Earth ${i}`,
     author: "Bill",
-    date: '${i}',
+    date: `1-23-198${i}` ,
   });
 }
 
