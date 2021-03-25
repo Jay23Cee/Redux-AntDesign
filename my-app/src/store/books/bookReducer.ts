@@ -12,7 +12,15 @@ import { action } from "typesafe-actions";
 import ActionButton from "antd/lib/modal/ActionButton";
 
 
-const bookReducerDefaultState: Books[] =[]
+const bookReducerDefaultState: Books[] =[];
+for (let i = 0; i < 100; i++) {
+  bookReducerDefaultState.push({
+    key: i.toString(),
+    title: `Earth ${i}`,
+    author: "Bill",
+    date: '${i}',
+  });
+}
 
 const bookReducer =(state =bookReducerDefaultState, action: BookActionTypes): Books[] =>{
   switch (action.type){
