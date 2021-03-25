@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form, Typography } from 'antd';
+import {Books} from '../store/books/books'
 
 interface Item {
   key: string;
@@ -8,13 +9,13 @@ interface Item {
   address: string;
 }
 
-const originData: Item[] = [];
+const originData: Books[] = [];
 for (let i = 0; i < 100; i++) {
   originData.push({
     key: i.toString(),
-    name: `Edrward ${i}`,
-    age: 32,
-    address: `London Park no. ${i}`,
+    title: `Earth ${i}`,
+    author: "",
+    date: '${i}',
   });
 }
 interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
@@ -66,9 +67,9 @@ const EditableTable = () => {
   const [data, setData] = useState(originData);
   const [editingKey, setEditingKey] = useState('');
 
-  const isEditing = (record: Item) => record.key === editingKey;
+  const isEditing = (record: Books) => record.key === editingKey;
 
-  const edit = (record: Partial<Item> & { key: React.Key }) => {
+  const edit = (record: Partial<Books> & { key: React.Key }) => {
     form.setFieldsValue({ name: '', age: '', address: '', ...record });
     setEditingKey(record.key);
   };
@@ -79,14 +80,13 @@ const EditableTable = () => {
 
   const save = async (key: React.Key) => {
     try {
-      const row = (await form.validateFields()) as Item;
-
+      const row = (await form.validateFields()) as Books;
       const newData = [...data];
       const index = newData.findIndex(item => key === item.key);
       if (index > -1) {
-        const item = newData[index];
+        const Books = newData[index];
         newData.splice(index, 1, {
-          ...item,
+          ...Books,
           ...row,
         });
         setData(newData);
@@ -123,7 +123,7 @@ const EditableTable = () => {
     {
       title: 'operation',
       dataIndex: 'operation',
-      render: (_: any, record: Item) => {
+      render: (_: any, record: Books) => {
         const editable = isEditing(record);
         return editable ? (
           <span>
@@ -149,7 +149,7 @@ const EditableTable = () => {
     }
     return {
       ...col,
-      onCell: (record: Item) => ({
+      onCell: (record: Books) => ({
         record,
         inputType: col.dataIndex === 'age' ? 'number' : 'text',
         dataIndex: col.dataIndex,
