@@ -7,7 +7,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 
 
-
+// ROUTER needs to be improve
 const { Header, Content, Footer } = Layout;
 const Homepage = () => (
   <div >
