@@ -3,7 +3,8 @@ import '../App.css'
 import 'antd/dist/antd.css';
 import BookTable from './BookTable'
 import Newform from './Newbook'
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Link, Route } from 'react-router-dom';
+
 
 
 
@@ -15,9 +16,15 @@ const Homepage = () => (
     <Header>
       <div className="logo" />
       <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
-        <Menu.Item key="1"><a href="/">Home</a></Menu.Item>
-        <Menu.Item key="2"><a href="/new">New</a></Menu.Item>
+     
 
+     /*************
+      *****NEEDS ROUTER LINK******* */
+      ************
+
+        <Menu.Item key="1">Home</Menu.Item>
+        <Menu.Item key="2">New</Menu.Item>
+       
       </Menu>
     </Header>
     <Content style={{ padding: '0 50px' }}>
