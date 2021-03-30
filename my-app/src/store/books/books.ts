@@ -1,4 +1,4 @@
-export  interface Books{
+export  interface Book{
     key:string,
     title:string,
     author:string,

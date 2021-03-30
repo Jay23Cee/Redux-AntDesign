@@ -1,56 +1,65 @@
-import {Books} from "../books/books"
-
-
-import {BookActionTypes} from"../books/actionType" 
+import { Book } from "../books/books"
+import {v4 as uuidv4} from 'uuid';
+import {BookActionTypes} from "../books/actionType"
 import {
-  FETCH_BOOK,
-  EDIT_BOOK,
-  DELETE_BOOK,
-  NEW_BOOK,
-} from "../books/actionType"
-import { action } from "typesafe-actions";
-import ActionButton from "antd/lib/modal/ActionButton";
-
-
-const bookReducerDefaultState: Books[] =[];
-for (let i = 0; i < 10; i++) {
-  bookReducerDefaultState.push({
-    key: i.toString(),
-    title: `Earth ${i}`,
-    author: "Bill",
-    date: `1-23-198${i}` ,
-  });
-}
-
-const bookReducer =(state =bookReducerDefaultState, action: BookActionTypes): Books[] =>{
-  switch (action.type){
-    case FETCH_BOOK:
-      return action.books;
+    FETCH_BOOK,
+    EDIT_BOOK,
+    DELETE_BOOK,
+    NEW_BOOK,
     
-    case EDIT_BOOK:
-      return state.map(books => {
-        if(books.title === action.books.title){
-          return{
-            ...books,
-            ...action.books
-          };
-        }else{
-          return books;
-        }
-      })
+} from  "../books/actionType"
 
-      case DELETE_BOOK:
-        return state.filter(({title}) => title !== action.books.title)
 
-      case NEW_BOOK:
-        return state;
 
-      default:
-        return state;
-
-      
+/**************************
+ ******* LOCAL DATABASE ***
+ **************************/
+const BookRedeucerDefaultState: Book[] =[];
+for (let i = 0; i < 10; i++) {
+   BookRedeucerDefaultState.push({
+      key: uuidv4(),
+      title: `Horror story ${i}`,
+      author: `Bill`,
+      date: `1-23-198${i}`,
+  
+     
+    });
   }
 
+
+/************************
+ ******* BOOKREDUCER ****
+ ************************/
+const bookReducer =(state = BookRedeucerDefaultState, action: BookActionTypes): Book[] =>{
+    switch(action.type){
+        case FETCH_BOOK:
+            return { ...state, ...action.book}
+        case EDIT_BOOK:   // THIS NEEDS A BETTER WAY TO EDIT. 
+            return state.map(books => {
+                if (books.key === action.book.key){
+                    return {
+                        ...books,
+                        ...action.book
+                    };
+
+                }else{
+                    return books;
+                }
+            })
+        case DELETE_BOOK:
+            return state.filter(({ key}) => key !== action.key);
+        case NEW_BOOK:
+            return [...state, action.book]
+
+        default:
+            return state;
+
+
+    }
+
 }
+
+
+
 
 export {bookReducer}

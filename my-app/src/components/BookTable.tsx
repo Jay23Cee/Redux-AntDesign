@@ -3,13 +3,13 @@ import { Table, Input, InputNumber, Popconfirm, Form, Typography } from 'antd';
 import { timeStamp } from 'node:console';
 import { kMaxLength } from 'node:buffer';
 
-import {Book} from '../store/book/Book';
+import {Book} from '../store/books/books';
 
 import {AppState} from "../store/store";
 import { connect} from 'react-redux';
-import {AppAction } from "../store/book/actionType";
+import {AppAction } from "../store/books/actionType";
 import { ThunkDispatch  } from "redux-thunk";
-import * as action from "../store/book/bookAction";
+import * as action from "../store/books/bookAction";
 import { bindActionCreators } from 'redux';
 
 
