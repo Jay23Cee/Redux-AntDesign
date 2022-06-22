@@ -10,10 +10,10 @@ import { ThunkDispatch  } from "redux-thunk";
 import * as action from "../store/books/bookAction";
 import { bindActionCreators } from 'redux';
 import { bookReducer } from '../store/books/bookReducer';
-import { routerMiddleware } from 'react-router-redux';
+
 import { Redirect } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
-
+import {Link, Route} from "react-router-dom"
 
 const layout = {
   labelCol: { span: 8 },
@@ -45,8 +45,11 @@ export const NewMenu=() =>{
 
   return(
   <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-  <Menu.Item key="1"><a href="/">Home</a></Menu.Item>
-  <Menu.Item key="2"><a href="/new">New</a></Menu.Item>
+
+ <Menu.Item key="1">Menu</Menu.Item>
+
+
+  <Link to="/new"><Menu.Item key="2">New</Menu.Item></Link>
 
 </Menu>
 

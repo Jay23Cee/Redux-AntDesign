@@ -9,6 +9,13 @@ import {
     
 } from  "../books/actionType"
 
+import { open } from 'sqlite'
+import SQLite from "react-native-sqlite-storage";
+import "setimmediate"
+
+import sqlite from 'sqlite';
+import sqlite3 from 'sqlite3';
+
 
 
 /**************************

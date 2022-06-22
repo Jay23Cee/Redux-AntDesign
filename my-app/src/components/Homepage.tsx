@@ -8,23 +8,27 @@ import { BrowserRouter, Link, Route } from 'react-router-dom';
 
 
 
+
+
 // ROUTER needs to be improve
 const { Header, Content, Footer } = Layout;
 const Homepage = () => (
+     
   <div >
    <Layout className="layout">
     <Header>
       <div className="logo" />
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
+      <Menu theme="dark" mode="horizontal" >
      
 
-     /*************
-      *****NEEDS ROUTER LINK******* */
-      ************
-
-        <Menu.Item key="1">Home</Menu.Item>
-        <Menu.Item key="2">New</Menu.Item>
-       
+     
+      <Menu.Item key="1"><Link to="/">Menu</Link></Menu.Item>
+ 
+    
+     <Menu.Item key="2"><Link to="/new">New</Link></Menu.Item>
+   
+     
+   
       </Menu>
     </Header>
     <Content style={{ padding: '0 50px' }}>
@@ -35,16 +39,15 @@ const Homepage = () => (
       </Breadcrumb>
       
       <div className="site-layout-content">
-      <BrowserRouter>
        <Route exact path="/" component={BookTable}/> 
        <Route path="/New" component={Newform}/>
        
-        </BrowserRouter>
         </div>
     </Content>
     <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
   </Layout>
   </div>
+        
 );
 
 export default Homepage;

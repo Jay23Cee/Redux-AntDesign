@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Homepage from './components/Homepage'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux';
-
+import { BrowserRouter, Link, Route } from 'react-router-dom';
 import { BookActions } from './store/books/types';
 
 
@@ -13,7 +13,9 @@ function App() {
   
   return (
     <div >
+            <BrowserRouter>
      <Homepage/>
+  </BrowserRouter>
     </div>
   );
 }

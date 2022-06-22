@@ -11,7 +11,7 @@ import {AppAction } from "../store/books/actionType";
 import { ThunkDispatch  } from "redux-thunk";
 import * as action from "../store/books/bookAction";
 import { bindActionCreators } from 'redux';
-
+import axios from 'axios';
 
 
 
@@ -25,12 +25,38 @@ export interface BookTableProps{
 interface BookTableState {}
 
 type Props = BookTableProps & LinkStateProps & LinkDispatchProps;
+const url = "https://api.deezer.com/chart";
+const config = {
+   url,
+   headers: {
+    'Access-Control-Allow-Origin' : '*',
+    'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+    }
+}
+
 
 export class BookTable extends React.Component<Props, BookTableState> {
 
+  state = {
+    title:'',
+    author:''
+  }
+
+  componentDidMount() {
+    axios.get(`http://localhost:3333/read`)
+      .then(res => {
+        const persons =res.data;
+        this.setState({ persons });
+        console.log({persons})
+
+        console.log( persons)
+      })
+  }
   // onRemove = (id: string) => {
   //   this.props.startRemoveExpense(id);
   // };
+
+
   render() {
 
     const { originData} = this.props;
@@ -56,6 +82,8 @@ export class BookTable extends React.Component<Props, BookTableState> {
         setEditingKey(record.key);
         this.props.startDeleteBook(record.key)
      
+
+         
       };
     
      
