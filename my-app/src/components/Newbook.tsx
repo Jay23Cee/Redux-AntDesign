@@ -14,6 +14,8 @@ import { bookReducer } from '../store/books/bookReducer';
 import { Redirect } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import {Link, Route} from "react-router-dom"
+import axios from 'axios';
+import { response } from 'express';
 
 const layout = {
   labelCol: { span: 8 },
@@ -107,10 +109,22 @@ class NewBook extends React.Component<Props, BookTableState>{
     
       const onFinish = (values: Book) => {
         console.log(values);
-
+        const JSON_string = JSON.stringify(values)
         this.props.startNewBook(values)
-        
+        console.log(JSON_string)
+        const headers = {
+          'Content-Type': 'text/plain'
+        };
+       const res= axios.post(`http://localhost:3333/add`,values,{headers}).then(response=>{
+        console.log("Sucess ========>,", response.data)
+       }).catch(error=>{
+        console.log("Error ========>", error)
+       });
+       
+        console.log(res)
       }
+
+
     return (
 
       <div>

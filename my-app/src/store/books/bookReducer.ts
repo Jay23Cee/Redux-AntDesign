@@ -15,23 +15,37 @@ import "setimmediate"
 
 import sqlite from 'sqlite';
 import sqlite3 from 'sqlite3';
+import axios from "axios";
+import { response } from "express";
 
 
 
 /**************************
  ******* LOCAL DATABASE ***
  **************************/
-const BookRedeucerDefaultState: Book[] =[];
-for (let i = 0; i < 10; i++) {
-   BookRedeucerDefaultState.push({
-      key: uuidv4(),
-      title: `Horror story ${i}`,
-      author: `Bill`,
-      date: `1-23-198${i}`,
-  
-     
-    });
+ async function getbooks(){
+    const BookRedeucerDefaultState: Book[]  = [];
+    let found = false;
+    let link = `http://localhost:3333/read`;
+    const { data } = await axios.get(link);
+     console.log(data)
+     var len =  Object.keys(data).length
+     console.log(len)
+     for (let i = 0; i < len; i++) {
+        console.log( data[i])
+        BookRedeucerDefaultState.push(
+            data[i]
+         );
+       }
+    return   BookRedeucerDefaultState; 
   }
+
+
+
+  const BookRedeucerDefaultState: Book[] =[];
+
+
+
 
 
 /************************
@@ -41,7 +55,7 @@ const bookReducer =(state = BookRedeucerDefaultState, action: BookActionTypes): 
     switch(action.type){
         case FETCH_BOOK:
             return { ...state, ...action.book}
-        case EDIT_BOOK:   // THIS NEEDS A BETTER WAY TO EDIT. 
+        case EDIT_BOOK:   
             return state.map(books => {
                 if (books.key === action.book.key){
                     return {
