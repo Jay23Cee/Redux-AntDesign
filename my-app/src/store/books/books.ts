@@ -1,6 +1,7 @@
 export  interface Book{
-    key:string,
-    title:string,
-    author:string,
-    date:string,
+    ID:string,
+    Title:string,
+    Author:string,
+    Date:string,
+   
 }

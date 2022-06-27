@@ -9,7 +9,7 @@ export const DELETE_BOOK = "DELETE_BOOK";
 
 export interface DeleteBookAction {
     type: typeof DELETE_BOOK;
-    key:string;
+   id:string;
 }
 
 export interface EditBookAction {

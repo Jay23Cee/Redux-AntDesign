@@ -15,7 +15,7 @@ import { Redirect } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import {Link, Route} from "react-router-dom"
 import axios from 'axios';
-import { response } from 'express';
+
 
 const layout = {
   labelCol: { span: 8 },
@@ -58,7 +58,6 @@ export const NewMenu=() =>{
 )
   }
 
-/* eslint-disable no-template-curly-in-string */
 const validateMessages = {
   required: '${label} is required!',
   types: {
@@ -69,7 +68,6 @@ const validateMessages = {
     range: '${label} must be between ${min} and ${max}',
   },
 };
-/* eslint-enable no-template-curly-in-string */
 
 
 interface BookTableState {}

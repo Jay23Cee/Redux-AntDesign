@@ -1,4 +1,4 @@
-import React, { useState,  Component } from 'react';
+import React, { useState,  Component, useEffect } from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form, Typography } from 'antd';
 import { timeStamp } from 'node:console';
 import { kMaxLength } from 'node:buffer';
@@ -12,14 +12,17 @@ import { ThunkDispatch  } from "redux-thunk";
 import * as action from "../store/books/bookAction";
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
+import { getbooks } from '../store/books/bookReducer';
 
 
 
 export interface BookTableProps{
-  title: string;
-  author: string;
-  date: string;
-  key: string;
+  Title: string;
+  Author: string;
+  Date: string;
+  Id: string;
+  Key:string;
+  
 }
 
 interface BookTableState {}
@@ -39,19 +42,13 @@ export class BookTable extends React.Component<Props, BookTableState> {
 
   state = {
     title:'',
-    author:''
+    author:'',
+    key:``
   }
 
-  componentDidMount() {
-    axios.get(`http://localhost:3333/read`)
-      .then(res => {
-        const persons =res.data;
-        this.setState({ persons });
-        console.log({persons})
 
-        console.log( persons)
-      })
-  }
+    
+    
   // onRemove = (id: string) => {
   //   this.props.startRemoveExpense(id);
   // };
@@ -65,22 +62,82 @@ export class BookTable extends React.Component<Props, BookTableState> {
       const [form] = Form.useForm();
       const [data, setData] = useState(originData);
       const [editingKey, setEditingKey] = useState('');
+      
     
-      const isEditing = (record: Book) => record.key === editingKey;
-      const isDeleting  = (record: Book) => record.key === editingKey;
+
+     useEffect(function effectFunction() {
+        async function fetchBooks() {
+           var bdata = await getbooks()
+           setData(bdata);
+            console.log("done", data)
+            console.log("done2",bdata)
+        }
+        fetchBooks();
+    }, []);
+      
+  
+
+    
+      const isEditing = (record: Book) => record.ID === editingKey;
+      const isDeleting  = (record: Book) => record.ID === editingKey;
     
   
-      const onEdit = (record: Partial<Book> & { key: React.Key }) => {
-        form.setFieldsValue({ title: '', author: '', date: '', address: '', ...record });
-        setEditingKey(record.key);
+      const onEdit = (record: Partial<Book> & { ID: React.Key }) => {
+        form.setFieldsValue({ Title: '', Author: '', Date: '', ...record });
+        setEditingKey(record.ID);
        
       };
     
     
     
-      const onDelete = (record: Partial<Book> & { key: React.Key }) => {
-        setEditingKey(record.key);
-        this.props.startDeleteBook(record.key)
+      const onDelete =async (record: Partial<Book> & { ID: React.Key }) => {
+        setEditingKey(record.ID);
+        console.log()
+        try {
+          const row = (await form.validateFields()) as Book;
+    
+          const newData = [...data];
+          const index = newData.findIndex(item =>record.ID === item.ID);
+          console.log("NEW DATA ", record.ID, " : INDEX", index)
+          if (index > -1) {
+            const item = newData[index];
+            newData.splice(index, 1, {
+              ...item,
+              ...row,
+            });
+            const temp_book = {"book": newData[index]}
+            const JSON_string = JSON.stringify(temp_book)
+            
+            console.log(JSON_string)
+            const headers = {
+              'Content-Type': 'text/plain'
+            };
+
+           const res= axios.post(`http://localhost:3333/delete`,JSON_string,{headers}).then(response=>{
+            console.log("Sucess ========>,", response.data)
+           }).catch(error=>{
+            console.log("Error ========>", error)
+           });
+
+
+            setData(newData);
+            console.log(newData[index]);
+          this.props.startEditBook(newData[index]);
+            setEditingKey('');
+          
+          } else {
+            newData.push(row);
+
+           
+       
+            
+            setData(newData);
+            setEditingKey('');
+          }
+        } catch (errInfo) {
+          console.log('Validate Failed:', errInfo);
+        }
+        this.props.startDeleteBook(record.ID)
      
 
          
@@ -94,18 +151,34 @@ export class BookTable extends React.Component<Props, BookTableState> {
     
     
     
-      const save = async (key: React.Key) => {
+      const save = async (id: React.Key) => {
         try {
           const row = (await form.validateFields()) as Book;
     
           const newData = [...data];
-          const index = newData.findIndex(item => key === item.key);
+          const index = newData.findIndex(item => id === item.ID);
+          console.log("NEW DATA ", id, " : INDEX", index)
           if (index > -1) {
             const item = newData[index];
             newData.splice(index, 1, {
               ...item,
               ...row,
             });
+            const temp_book = {"book": newData[index]}
+            const JSON_string = JSON.stringify(temp_book)
+            
+            console.log(JSON_string)
+            const headers = {
+              'Content-Type': 'text/plain'
+            };
+
+           const res= axios.post(`http://localhost:3333/edit`,JSON_string,{headers}).then(response=>{
+            console.log("Sucess ========>,", response.data)
+           }).catch(error=>{
+            console.log("Error ========>", error)
+           });
+
+
             setData(newData);
             console.log(newData[index]);
           this.props.startEditBook(newData[index]);
@@ -113,6 +186,10 @@ export class BookTable extends React.Component<Props, BookTableState> {
           
           } else {
             newData.push(row);
+
+           
+       
+            
             setData(newData);
             setEditingKey('');
           }
@@ -120,6 +197,10 @@ export class BookTable extends React.Component<Props, BookTableState> {
           console.log('Validate Failed:', errInfo);
         }
       };
+
+      const savedb = async()=>{
+
+      }
     
       /**************************
        ******* Columns **********
@@ -127,14 +208,15 @@ export class BookTable extends React.Component<Props, BookTableState> {
        ********* Table *********/
       const columns = [
         {
-          title: 'title',
-          dataIndex: 'title',
+          title: 'Title',
+          dataIndex: 'Title',
           width: '45%',
           editable: true,
+          
         },
         {
-          title: 'author',
-          dataIndex: 'author',
+          title: 'Author',
+          dataIndex: 'Author',
           width: '25%',
           editable: true,
         },
@@ -151,7 +233,7 @@ export class BookTable extends React.Component<Props, BookTableState> {
             const editable = isEditing(record) || isDeleting(record);
             return editable ? (
               <span>
-                <a href="javascript:;" onClick={() => save(record.key)} style={{ marginRight: 8 }}>
+                <a href="javascript:;" onClick={() => save(record.ID)} style={{ marginRight: 8 }}>
                   Save
                 </a>
                 <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
@@ -181,6 +263,7 @@ export class BookTable extends React.Component<Props, BookTableState> {
       ];
     
       const mergedColumns = columns.map(col => {
+        
         if (!col.editable) {
           return col;
         }
@@ -196,10 +279,11 @@ export class BookTable extends React.Component<Props, BookTableState> {
           }),
         };
       });
-    
+      console.log(data)
       return (
-        <Form form={form} component={false}>
+        <Form form={form} component={false} >
           <Table
+          rowKey={record => record.ID}
             components={{
               body: {
                 cell: EditableCell,
@@ -207,6 +291,8 @@ export class BookTable extends React.Component<Props, BookTableState> {
             }}
             bordered
             dataSource={data}
+            
+             
             columns={mergedColumns}
             rowClassName="editable-row"
             pagination={{
@@ -317,3 +403,5 @@ const EditableCell: React.FC<EditableCellProps> = ({
 
 
 export default connect(mapStateToProps, mapDispatchToProps) (BookTable);
+
+

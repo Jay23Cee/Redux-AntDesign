@@ -44,11 +44,11 @@ export const startFetchBook = (books: Book[]) => {
   };
 };
 
-export const startDeleteBook = (key:string) => {
+export const startDeleteBook = (id:string) => {
   return(dispatch: Dispatch<AppAction>, getState: () => typeof AppState ) => {
     dispatch({
       type: DELETE_BOOK,
-      key:key,
+      id:id,
     });
   };
 }
