@@ -1,4 +1,4 @@
-import { Form, Input, Menu, Breadcrumb, Button } from 'antd';
+import { Form, Input, Menu, Breadcrumb, Button, Select, message } from 'antd';
 import React, { useState,  Component } from 'react';
 import { timeStamp } from 'node:console';
 import { kMaxLength } from 'node:buffer';
@@ -15,6 +15,8 @@ import { Redirect } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import {Link, Route} from "react-router-dom"
 import axios from 'axios';
+import { useForm } from "react-hook-form";
+
 
 
 const layout = {
@@ -99,16 +101,16 @@ interface LinkStateProps {
   
   });
   
-  
+;
 
-class NewBook extends React.Component<Props, BookTableState>{
+const NewBook=()=>{
 
-  render() {
-    
-      const onFinish = (values: Book) => {
-        console.log(values);
+
+   
+     const [form] = Form.useForm()
+      const onFinish = (values: Book) => {        console.log(values);
         const JSON_string = JSON.stringify(values)
-        this.props.startNewBook(values)
+        // this.props.startNewBook(values)
         console.log(JSON_string)
         const headers = {
           'Content-Type': 'text/plain'
@@ -118,15 +120,18 @@ class NewBook extends React.Component<Props, BookTableState>{
        }).catch(error=>{
         console.log("Error ========>", error)
        });
-       
+        
         console.log(res)
+        form.resetFields();
+        message.success('Book has been added', 10);
+       
       }
 
 
     return (
 
       <div>
-          <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
+          <Form {...layout} form={form} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
           <Form.Item name={['book', 'title']} label="Title" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
@@ -143,6 +148,9 @@ class NewBook extends React.Component<Props, BookTableState>{
       </div>
     );
   } 
-}// end of Class NewBook
+// end of Class NewBook
+
+
+
 
 export default connect(mapStateToProps, mapDispatchToProps) ( NewBook);
