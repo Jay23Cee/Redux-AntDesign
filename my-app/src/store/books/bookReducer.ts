@@ -33,7 +33,7 @@ import axios from "axios";
         var len =  Object.keys(data).length
        
         for (let i = 0; i < len; i++) {
-           console.log( data[i])
+           console.log( data[i]["id"])
            BookRedeucerDefaultState.push(
                data[i]
             );
@@ -49,18 +49,6 @@ import axios from "axios";
 
   const BookRedeucerDefaultState: Book[] =[];
 
- // const BookRedeucerDefaultState: Book[] =[];
-  for (let i = 0; i < 5; i++) {
-     BookRedeucerDefaultState.push({
-      // Key: uuidv4(),
-       Title: `Horror story ${i}`,
-        Author: `Bill`,
-        Date: `1-23-198${i}`,
-        ID: uuidv4()
-  
-  
-      });
-    }
 
 
 /************************

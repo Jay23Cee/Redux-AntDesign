@@ -13,6 +13,7 @@ import * as action from "../store/books/bookAction";
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import { getbooks } from '../store/books/bookReducer';
+import { NIL } from 'uuid';
 
 
 
@@ -38,25 +39,18 @@ const config = {
 }
 
 
-export class BookTable extends React.Component<Props, BookTableState> {
+export const BookTable: React.FC<Props> = () =>{
 
-  state = {
-    title:'',
-    author:'',
-    key:``
-  }
+
+  const [title,settitle]= useState("")
+  const [author,setauthor]=useState("")
 
 
     
-    
-  // onRemove = (id: string) => {
-  //   this.props.startRemoveExpense(id);
-  // };
 
+  
 
-  render() {
-
-    const { originData} = this.props;
+    const  originData: Book[] =[];
     
     const EditableTable = () => {
       const [form] = Form.useForm();
@@ -71,9 +65,10 @@ export class BookTable extends React.Component<Props, BookTableState> {
            setData(bdata);
             console.log("done", data)
             console.log("done2",bdata)
+            
         }
         fetchBooks();
-    }, []);
+    }, data);
       
   
 
@@ -101,10 +96,11 @@ export class BookTable extends React.Component<Props, BookTableState> {
           console.log("NEW DATA ", record.ID, " : INDEX", index)
           if (index > -1) {
             const item = newData[index];
-            newData.splice(index, 1, {
+           const condition= newData.splice(index, 1, {
               ...item,
               ...row,
             });
+            console.log(condition)
             const temp_book = {"book": newData[index]}
             const JSON_string = JSON.stringify(temp_book)
             
@@ -115,16 +111,20 @@ export class BookTable extends React.Component<Props, BookTableState> {
 
            const res= axios.post(`http://localhost:3333/delete`,JSON_string,{headers}).then(response=>{
             console.log("Sucess ========>,", response.data)
+
+           
+
            }).catch(error=>{
             console.log("Error ========>", error)
            });
 
-
-            setData(newData);
-            console.log(newData[index]);
-          this.props.startEditBook(newData[index]);
-            setEditingKey('');
-          
+           
+           const update= await getbooks()
+           setData(update)
+            
+          // action.startEditBook(newData[index]);
+           setEditingKey('');
+            
           } else {
             newData.push(row);
 
@@ -133,11 +133,12 @@ export class BookTable extends React.Component<Props, BookTableState> {
             
             setData(newData);
             setEditingKey('');
+           
           }
         } catch (errInfo) {
           console.log('Validate Failed:', errInfo);
         }
-        this.props.startDeleteBook(record.ID)
+        action.startDeleteBook(record.ID)
      
 
          
@@ -181,7 +182,7 @@ export class BookTable extends React.Component<Props, BookTableState> {
 
             setData(newData);
             console.log(newData[index]);
-          this.props.startEditBook(newData[index]);
+         action.startEditBook(newData[index]);
             setEditingKey('');
           
           } else {
@@ -198,9 +199,6 @@ export class BookTable extends React.Component<Props, BookTableState> {
         }
       };
 
-      const savedb = async()=>{
-
-      }
     
       /**************************
        ******* Columns **********
@@ -310,7 +308,7 @@ export class BookTable extends React.Component<Props, BookTableState> {
       </div>
     );
   }
-}
+
 
 
 
