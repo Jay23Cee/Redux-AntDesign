@@ -108,6 +108,7 @@ const NewBook=()=>{
 
    
      const [form] = Form.useForm()
+
       const onFinish = (values: Book) => {        console.log(values);
         const JSON_string = JSON.stringify(values)
         // this.props.startNewBook(values)
@@ -116,14 +117,14 @@ const NewBook=()=>{
           'Content-Type': 'text/plain'
         };
        const res= axios.post(`http://localhost:3333/add`,values,{headers}).then(response=>{
-        console.log("Sucess ========>,", response.data)
+         console.log("Sucess ========>,", response.data)
+         message.success('Book has been added', 10);
        }).catch(error=>{
         console.log("Error ========>", error)
        });
         
         console.log(res)
         form.resetFields();
-        message.success('Book has been added', 10);
        
       }
 
