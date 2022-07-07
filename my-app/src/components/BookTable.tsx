@@ -1,7 +1,5 @@
 import React, { useState,  Component, useEffect } from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form, Typography } from 'antd';
-import { timeStamp } from 'node:console';
-import { kMaxLength } from 'node:buffer';
 
 import {Book} from '../store/books/books';
 
@@ -13,7 +11,7 @@ import * as action from "../store/books/bookAction";
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import { getbooks } from '../store/books/bookReducer';
-import { NIL } from 'uuid';
+;
 
 
 
@@ -40,17 +38,7 @@ const config = {
 
 
 export const BookTable: React.FC<Props> = () =>{
-
-
-  const [title,settitle]= useState("")
-  const [author,setauthor]=useState("")
-
-
-    
-
-  
-
-    const  originData: Book[] =[];
+ const  originData: Book[] =[];
     
     const EditableTable = () => {
       const [form] = Form.useForm();
@@ -61,11 +49,8 @@ export const BookTable: React.FC<Props> = () =>{
 
      useEffect(function effectFunction() {
         async function fetchBooks() {
-           var bdata = await getbooks()
-           setData(bdata);
-            console.log("done", data)
-            console.log("done2",bdata)
-            
+           var data = await getbooks()
+           setData(data);    
         }
         fetchBooks();
     }, data);
