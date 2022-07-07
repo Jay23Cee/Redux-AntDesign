@@ -21,11 +21,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-type Post struct {
-	Title string `bson:"title,omitempty"`
-	Body  string `bson:"body,omitempty"`
-}
-
 type Book struct {
 	Title  string `bson:"Title,omitempty"`
 	Author string `bson:"Author,omitempty"`
