@@ -6,7 +6,7 @@ import {Book} from '../store/books/books';
 import {AppState} from "../store/store";
 import { connect} from 'react-redux';
 import {AppAction } from "../store/books/actionType";
-import { ThunkDispatch  } from "redux-thunk";
+//import { ThunkDispatch  } from "redux-thunk";
 import * as action from "../store/books/bookAction";
 import { bindActionCreators } from 'redux';
 import { bookReducer } from '../store/books/bookReducer';
@@ -85,13 +85,13 @@ interface LinkStateProps {
     
   }
   
-    const mapDispatchToProps = (
-    dispatch : ThunkDispatch<any,any,AppAction>,
-    ownProps: BookTableProps
-  ): LinkDispatchProps => ({
-    startNewBook: bindActionCreators(action.startNewBook, dispatch),
+  //   const mapDispatchToProps = (
+  //   dispatch : ThunkDispatch<any,any,AppAction>,
+  //   ownProps: BookTableProps
+  // ): LinkDispatchProps => ({
+  //   startNewBook: bindActionCreators(action.startNewBook, dispatch),
     
-  })
+  // })
   
   const mapStateToProps = (
     state: AppState,
@@ -154,4 +154,5 @@ const NewBook=()=>{
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps) ( NewBook);
+//export default connect(mapStateToProps, mapDispatchToProps) ( NewBook);
+export default NewBook

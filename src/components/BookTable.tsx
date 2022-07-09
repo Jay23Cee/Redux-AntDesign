@@ -3,10 +3,10 @@ import { Table, Input, InputNumber, Popconfirm, Form, Typography } from 'antd';
 
 import {Book} from '../store/books/books';
 
-import {AppState} from "../store/store";
+//import {AppState} from "../store/store";
 import { connect} from 'react-redux';
 import {AppAction } from "../store/books/actionType";
-import { ThunkDispatch  } from "redux-thunk";
+//import { ThunkDispatch  } from "redux-thunk";
 import * as action from "../store/books/bookAction";
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
@@ -123,7 +123,7 @@ export const BookTable: React.FC<Props> = () =>{
         } catch (errInfo) {
           console.log('Validate Failed:', errInfo);
         }
-        action.startDeleteBook(record.ID)
+       // action.startDeleteBook(record.ID)
      
 
          
@@ -167,7 +167,7 @@ export const BookTable: React.FC<Props> = () =>{
 
             setData(newData);
             console.log(newData[index]);
-         action.startEditBook(newData[index]);
+        // action.startEditBook(newData[index]);
             setEditingKey('');
           
           } else {
@@ -311,22 +311,22 @@ interface LinkDispatchProps{
 
 
 
-const mapStateToProps = (
-  state: AppState,
-  ownProps: BookTableProps
-): LinkStateProps => ({
-originData: state.books
+// const mapStateToProps = (
+//   state: AppState,
+//   ownProps: BookTableProps
+// ): LinkStateProps => ({
+// originData: state.books
 
-});
+// });
 
 
-const mapDispatchToProps = (
-  dispatch : ThunkDispatch<any,any,AppAction>,
-  ownProps: BookTableProps
-): LinkDispatchProps => ({
-  startEditBook: bindActionCreators(action.startEditBook, dispatch),
-  startDeleteBook: bindActionCreators(action.startDeleteBook, dispatch),
-})
+// const mapDispatchToProps = (
+//   dispatch : ThunkDispatch<any,any,AppAction>,
+//   ownProps: BookTableProps
+// ): LinkDispatchProps => ({
+//   startEditBook: bindActionCreators(action.startEditBook, dispatch),
+//   startDeleteBook: bindActionCreators(action.startDeleteBook, dispatch),
+// })
 
 
 ///////////////////////////////////////////
@@ -385,6 +385,6 @@ const EditableCell: React.FC<EditableCellProps> = ({
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps) (BookTable);
+//export default connect(mapStateToProps, mapDispatchToProps) (BookTable);
 
-
+export default BookTable
