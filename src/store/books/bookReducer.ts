@@ -86,6 +86,4 @@ const bookReducer =(state = BookRedeucerDefaultState, action: BookActionTypes): 
 }
 
 
-
-
 export {bookReducer}

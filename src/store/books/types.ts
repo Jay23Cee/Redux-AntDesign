@@ -9,6 +9,7 @@ export interface BookState {
     list: string[],
     title:string[],
     author:string[],
+    
 
 }
 
