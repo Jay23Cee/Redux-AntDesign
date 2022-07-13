@@ -1,7 +1,12 @@
-FROM geerlingguy/php-apache:latest
 
-RUN rm /var/www/html/index.html
-COPY index.php /var/www/html/index.php
+FROM node:alpine
+WORKDIR /my-app/src
+COPY package.json ./
+COPY package-lock.json ./
+COPY ./ ./
+RUN npm i
+EXPOSE  3000
+CMD [ "npm","run","start" ]
 
 COPY ./ports.conf /etc/apache2/ports.conf
 COPY ./apache.conf /etc/apache2/site-enabled/000-default.conf
