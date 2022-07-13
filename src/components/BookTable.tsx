@@ -53,7 +53,7 @@ export const BookTable: React.FC<Props> = () =>{
            setData(data);    
         }
         fetchBooks();
-    }, data);
+    }, []);
       
   
 
@@ -115,8 +115,8 @@ export const BookTable: React.FC<Props> = () =>{
 
            
        
-            
-            setData(newData);
+            const update= await getbooks()
+           setData(update)
             setEditingKey('');
            
           }
