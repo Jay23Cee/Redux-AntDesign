@@ -50,7 +50,7 @@ export const NewMenu=() =>{
   return(
   <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
 
- <Menu.Item key="1">Menu</Menu.Item>
+ <Menu.Item key="1">Home</Menu.Item>
 
 
   <Link to="/new"><Menu.Item key="2">New</Menu.Item></Link>
