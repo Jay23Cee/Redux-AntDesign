@@ -7,6 +7,3 @@ COPY ./ ./
 RUN npm i
 EXPOSE  3000
 CMD [ "npm","run","start" ]
-
-COPY ./ports.conf /etc/apache2/ports.conf
-COPY ./apache.conf /etc/apache2/site-enabled/000-default.conf
