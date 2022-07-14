@@ -17,7 +17,7 @@ import (
 )
 
 func context_withouttime() context.Context {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
 	return ctx
@@ -103,7 +103,7 @@ func deletebook(w http.ResponseWriter, r *http.Request) {
 	}
 	clientOptions := options.Client().
 		ApplyURI(url)
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 	client, err := mongo.Connect(ctx, clientOptions)
 	if err != nil {
@@ -148,7 +148,7 @@ func addbooks(w http.ResponseWriter, r *http.Request) {
 
 	clientOptions := options.Client().
 		ApplyURI(url)
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 	client, err := mongo.Connect(ctx, clientOptions)
 	if err != nil {
@@ -187,7 +187,7 @@ func editbook(w http.ResponseWriter, r *http.Request) {
 
 	clientOptions := options.Client().
 		ApplyURI(url)
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 	client, err := mongo.Connect(ctx, clientOptions)
 	if err != nil {
