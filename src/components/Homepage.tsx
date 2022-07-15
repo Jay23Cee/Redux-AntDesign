@@ -1,15 +1,10 @@
  import { Layout, Menu, Breadcrumb } from 'antd';
- import React, { useState,  Component, useEffect } from 'react';
+ import React from 'react';
 import '../App.css'
 import 'antd/dist/antd.css';
 import BookTable from './BookTable'
 import Newform from './Newbook'
-import { BrowserRouter, Link, Route } from 'react-router-dom';
-
-
-
-
-
+import { Link, Route } from 'react-router-dom';
 
 // ROUTER needs to be improve
 const { Header, Content, Footer } = Layout;
@@ -21,14 +16,11 @@ const Homepage = () => (
       <div className="logo" />
       <Menu theme="dark" mode="horizontal" >
      
-
      
       <Menu.Item key="1"><Link to="/">Home</Link></Menu.Item>
   
      <Menu.Item key="2"><Link to="/new">New</Link></Menu.Item>
-   
-     
-   
+
       </Menu>
     </Header>
     <Content style={{ padding: '0 50px' }}>
