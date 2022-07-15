@@ -4,5 +4,6 @@ services:
        build: .
        ports:
            - "3000:3000"
+           - "3333:3333"
        environment:
            REACT_APP_GO_URL: "mongodb+srv://mongo:LOsLH6a40mcR0QzB@cluster0.esomu.mongodb.net/?retryWrites=true&w=majority"
