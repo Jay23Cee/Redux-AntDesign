@@ -1,35 +1,17 @@
-import { Form, Input, Menu, Breadcrumb, Button, Select, message } from 'antd';
-import React, { useState,  Component } from 'react';
-import { timeStamp } from 'node:console';
-import { kMaxLength } from 'node:buffer';
+import { Form, Input, Menu, Breadcrumb, Button, message } from 'antd';
+import React from 'react';
+
 import {Book} from '../store/books/books';
-import {AppState} from "../store/store";
-import { connect} from 'react-redux';
-import {AppAction } from "../store/books/actionType";
-//import { ThunkDispatch  } from "redux-thunk";
-import * as action from "../store/books/bookAction";
-import { bindActionCreators } from 'redux';
-import { bookReducer } from '../store/books/bookReducer';
 
-import { Redirect } from 'react-router';
-import { BrowserRouter } from 'react-router-dom';
-import {Link, Route} from "react-router-dom"
+
+import {Link} from "react-router-dom"
 import axios from 'axios';
-import { useForm } from "react-hook-form";
-
 
 
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
 };
-
-interface BookTableProps{
-  title: string;
-  author: string;
-  date: string;
-  key: string;
-}
 
 export const NewItem = () =>{
 
@@ -49,10 +31,7 @@ export const NewMenu=() =>{
 
   return(
   <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-
- <Menu.Item key="1">Home</Menu.Item>
-
-
+  <Menu.Item key="1">Home</Menu.Item>
   <Link to="/new"><Menu.Item key="2">New</Menu.Item></Link>
 
 </Menu>
@@ -72,41 +51,8 @@ const validateMessages = {
 };
 
 
-interface BookTableState {}
-
-type Props = BookTableProps & LinkStateProps & LinkDispatchProps;
-
-interface LinkStateProps {
-  originData: Book[];
-  }
-  
-  interface LinkDispatchProps{
-    startNewBook: (book : Book) => void;
-    
-  }
-  
-  //   const mapDispatchToProps = (
-  //   dispatch : ThunkDispatch<any,any,AppAction>,
-  //   ownProps: BookTableProps
-  // ): LinkDispatchProps => ({
-  //   startNewBook: bindActionCreators(action.startNewBook, dispatch),
-    
-  // })
-  
-  const mapStateToProps = (
-    state: AppState,
-    ownProps: BookTableProps
-  ): LinkStateProps => ({
-  originData: state.books
-  
-  });
-  
-;
-
 const NewBook=()=>{
 
-
-   
      const [form] = Form.useForm()
 
       const onFinish = (values: Book) => {        console.log(values);
@@ -149,10 +95,5 @@ const NewBook=()=>{
       </div>
     );
   } 
-// end of Class NewBook
 
-
-
-
-//export default connect(mapStateToProps, mapDispatchToProps) ( NewBook);
 export default NewBook
