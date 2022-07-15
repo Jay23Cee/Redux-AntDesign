@@ -1,14 +1,6 @@
 import React, { useState,  Component, useEffect } from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form, Typography } from 'antd';
-
 import {Book} from '../store/books/books';
-
-//import {AppState} from "../store/store";
-import { connect} from 'react-redux';
-import {AppAction } from "../store/books/actionType";
-//import { ThunkDispatch  } from "redux-thunk";
-import * as action from "../store/books/bookAction";
-import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import { getbooks } from '../store/books/bookReducer';
 ;
@@ -23,8 +15,6 @@ export interface BookTableProps{
   Key:string;
   
 }
-
-interface BookTableState {}
 
 type Props = BookTableProps & LinkStateProps & LinkDispatchProps;
 const url = "https://api.deezer.com/chart";
@@ -311,24 +301,6 @@ interface LinkDispatchProps{
 
 
 
-// const mapStateToProps = (
-//   state: AppState,
-//   ownProps: BookTableProps
-// ): LinkStateProps => ({
-// originData: state.books
-
-// });
-
-
-// const mapDispatchToProps = (
-//   dispatch : ThunkDispatch<any,any,AppAction>,
-//   ownProps: BookTableProps
-// ): LinkDispatchProps => ({
-//   startEditBook: bindActionCreators(action.startEditBook, dispatch),
-//   startDeleteBook: bindActionCreators(action.startDeleteBook, dispatch),
-// })
-
-
 ///////////////////////////////////////////
 /////BELOW IS THE Ant Design Table////////
 ///////////////////////////////////////////
@@ -382,9 +354,5 @@ const EditableCell: React.FC<EditableCellProps> = ({
     </td>
   );
 };
-
-
-
-//export default connect(mapStateToProps, mapDispatchToProps) (BookTable);
 
 export default BookTable
