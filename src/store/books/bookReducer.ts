@@ -24,13 +24,17 @@ import express from "express";
  export async function getbooks(){
 
     const BookRedeucerDefaultState: Book[]  = [];
-   let port = process.env.PORT || 80;
-
+   let port = process.env.PORT as String
+   if (port === ""|| port == undefined){
+    port = "8080"
+   }
+   console.log(port)
     let link =  process.env.baseURL || "http://localhost:"+port
-
     try {
+        console.log(link+"/read")
         const { data } = await axios.get(link+"/read");
-      
+        console.log(data)
+        
         var len =  Object.keys(data).length
        
         for (let i = 0; i < len; i++) {

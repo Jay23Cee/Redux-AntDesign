@@ -1,11 +1,15 @@
 version: "3.9" 
 services:
-    serv1:
+    library-center:
         build: .
         ports:
+            - "8080:8080"
             - "3000:3000"
-            - "3333:3333"
         env_file:
-            - .docker.env
+            - ./.env
+       
         environment:
-            REACT_URL: "http://localhost:3333"
+            - REACT_APP_URL=http://localhost:8080
+            - CHOKIDAR_USEPOLLING=true
+      
+            
