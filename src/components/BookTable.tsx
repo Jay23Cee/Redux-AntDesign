@@ -2,7 +2,8 @@ import React, { useState,  Component, useEffect } from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form, Typography } from 'antd';
 import {Book} from '../store/books/books';
 import axios from 'axios';
-import { getbooks } from '../store/books/bookReducer';
+import {  delete_book, edit_book, getbooks } from '../store/books/bookReducer';
+import { deleteDatabase } from 'react-native-sqlite-storage';
 ;
 
 
@@ -40,7 +41,8 @@ export const BookTable: React.FC<Props> = () =>{
      useEffect(function effectFunction() {
         async function fetchBooks() {
            var data = await getbooks()
-           setData(data);    
+           setData(data); 
+          
         }
         fetchBooks();
     }, []);
@@ -62,41 +64,29 @@ export const BookTable: React.FC<Props> = () =>{
     
       const onDelete =async (record: Partial<Book> & { ID: React.Key }) => {
         setEditingKey(record.ID);
-        console.log()
+      
         try {
           const row = (await form.validateFields()) as Book;
     
           const newData = [...data];
           const index = newData.findIndex(item =>record.ID === item.ID);
-          console.log("NEW DATA ", record.ID, " : INDEX", index)
+
           if (index > -1) {
             const item = newData[index];
            const condition= newData.splice(index, 1, {
               ...item,
               ...row,
             });
-            console.log(condition)
+         
             const temp_book = {"book": newData[index]}
             const JSON_string = JSON.stringify(temp_book)
             
-            console.log(JSON_string)
-            const headers = {
-              'Content-Type': 'text/plain'
-            };
-
-           const res= axios.post(`http://localhost:3333/delete`,JSON_string,{headers}).then(response=>{
-            console.log("Sucess ========>,", response.data)
-
-           
-
-           }).catch(error=>{
-            console.log("Error ========>", error)
-           });
+           delete_book(JSON_string)
 
            
            const update= await getbooks()
            setData(update)
-            
+           setData(update)
           // action.startEditBook(newData[index]);
            setEditingKey('');
             
@@ -133,7 +123,7 @@ export const BookTable: React.FC<Props> = () =>{
     
           const newData = [...data];
           const index = newData.findIndex(item => id === item.ID);
-          console.log("NEW DATA ", id, " : INDEX", index)
+      
           if (index > -1) {
             const item = newData[index];
             newData.splice(index, 1, {
@@ -143,20 +133,13 @@ export const BookTable: React.FC<Props> = () =>{
             const temp_book = {"book": newData[index]}
             const JSON_string = JSON.stringify(temp_book)
             
-            console.log(JSON_string)
-            const headers = {
-              'Content-Type': 'text/plain'
-            };
-
-           const res= axios.post(`http://localhost:3333/edit`,JSON_string,{headers}).then(response=>{
-            console.log("Sucess ========>,", response.data)
-           }).catch(error=>{
-            console.log("Error ========>", error)
-           });
+       
+            edit_book(JSON_string)
 
 
             setData(newData);
-            console.log(newData[index]);
+            
+       
         // action.startEditBook(newData[index]);
             setEditingKey('');
           
@@ -252,7 +235,7 @@ export const BookTable: React.FC<Props> = () =>{
           }),
         };
       });
-      console.log(data)
+
       return (
         <Form form={form} component={false} >
           <Table

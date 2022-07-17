@@ -9,7 +9,6 @@ import (
 	"os"
 	"time"
 
-	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -28,7 +27,6 @@ func makeconnection(w http.ResponseWriter, r *http.Request) *mongo.Client {
 	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 	w.Header().Set("Access-Control-Expose-Headers", "Authorization")
 	url := os.Getenv("REACT_APP_GO_URL")
-
 	clientOptions := options.Client().ApplyURI(url)
 	ctx := context_withouttime()
 	client, err := mongo.Connect(ctx, clientOptions)
@@ -42,10 +40,7 @@ func getBooks(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 	w.Header().Set("Access-Control-Expose-Headers", "Authorization")
-	err := godotenv.Load(".env")
-	if err != nil {
-		panic(err)
-	}
+
 	mymap := make(map[int]Book)
 	// url := os.Getenv("REACT_APP_GO_URL")
 	// clientOptions := options.Client().
@@ -97,10 +92,6 @@ func deletebook(w http.ResponseWriter, r *http.Request) {
 	var temp Book
 	temp = jsonMap["book"]
 
-	err = godotenv.Load(".env")
-	if err != nil {
-		panic(err)
-	}
 	clientOptions := options.Client().
 		ApplyURI(url)
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)

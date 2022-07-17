@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/go-chi/chi/v5"
@@ -21,7 +22,7 @@ func main() {
 	r.Use(middleware.Timeout(60 * time.Second))
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("mongodb+srv://mongo:LOsLH6a40mcR0QzB@cluster0.esomu.mongodb.net/?retryWrites=true&w=majority"))
+		w.Write([]byte("hello"))
 	})
 
 	r.Post("/add", addbooks)
@@ -31,6 +32,10 @@ func main() {
 
 	// Mount the admin sub-router
 	fmt.Print("ACTIVE")
-	http.ListenAndServe(":3333", r)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = ":80" // Default port if not specified
+	}
+	http.ListenAndServe(port, r)
 
 }

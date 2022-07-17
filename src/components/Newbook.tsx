@@ -6,6 +6,7 @@ import {Book} from '../store/books/books';
 
 import {Link} from "react-router-dom"
 import axios from 'axios';
+import { add_book } from '../store/books/bookReducer';
 
 
 const layout = {
@@ -55,21 +56,11 @@ const NewBook=()=>{
 
      const [form] = Form.useForm()
 
-      const onFinish = (values: Book) => {        console.log(values);
+      const onFinish = (values: Book) => {      
         const JSON_string = JSON.stringify(values)
         // this.props.startNewBook(values)
         console.log(JSON_string)
-        const headers = {
-          'Content-Type': 'text/plain'
-        };
-       const res= axios.post(`http://localhost:3333/add`,values,{headers}).then(response=>{
-         console.log("Sucess ========>,", response.data)
-         message.success('Book has been added', 10);
-       }).catch(error=>{
-        console.log("Error ========>", error)
-       });
-        
-        console.log(res)
+        add_book(JSON_string, values)
         form.resetFields();
        
       }
