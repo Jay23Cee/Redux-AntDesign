@@ -1,7 +1,7 @@
  import { Layout, Menu, Breadcrumb } from 'antd';
  import React from 'react';
 import '../App.css'
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 import BookTable from './BookTable'
 import Newform from './Newbook'
 import { Link, Route } from 'react-router-dom';
@@ -31,8 +31,8 @@ const Homepage = () => (
       </Breadcrumb>
       
       <div className="site-layout-content">
-       <Route exact path="/" component={BookTable}/> 
-       <Route path="/New" component={Newform}/>
+       {/* <Route exact path="/" component={BookTable}/>  */}
+       {/* <Route path="/New" component={Newform}/> */}
        
         </div>
     </Content>
