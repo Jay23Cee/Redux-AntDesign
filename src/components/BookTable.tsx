@@ -1,9 +1,8 @@
-import React, { useState,  Component, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form, Typography } from 'antd';
 import {Book} from '../store/books/books';
-import axios from 'axios';
 import {  delete_book, edit_book, getbooks } from '../store/books/bookReducer';
-import { deleteDatabase } from 'react-native-sqlite-storage';
+
 ;
 
 
@@ -18,17 +17,12 @@ export interface BookTableProps{
 }
 
 type Props = BookTableProps & LinkStateProps & LinkDispatchProps;
-const url = "https://api.deezer.com/chart";
-const config = {
-   url,
-   headers: {
-    'Access-Control-Allow-Origin' : '*',
-    'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-    }
-}
-
 
 export const BookTable: React.FC<Props> = () =>{
+
+
+
+
  const  originData: Book[] =[];
     
     const EditableTable = () => {
@@ -38,14 +32,14 @@ export const BookTable: React.FC<Props> = () =>{
       
     
 
-     useEffect(function effectFunction() {
-        async function fetchBooks() {
-           var data = await getbooks()
-           setData(data); 
+    //  useEffect(function effectFunction() {
+    //     async function fetchBooks() {
+    //        var data = await getbooks()
+    //        setData(data); 
           
-        }
-        fetchBooks();
-    }, []);
+    //     }
+    //     fetchBooks();
+    // }, []);
       
   
 
@@ -72,18 +66,12 @@ export const BookTable: React.FC<Props> = () =>{
           const index = newData.findIndex(item =>record.ID === item.ID);
 
           if (index > -1) {
-            const item = newData[index];
-           const condition= newData.splice(index, 1, {
-              ...item,
-              ...row,
-            });
-         
+          
             const temp_book = {"book": newData[index]}
             const JSON_string = JSON.stringify(temp_book)
             
            delete_book(JSON_string)
 
-           
            const update= await getbooks()
            setData(update)
            setData(update)
