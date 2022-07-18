@@ -31,8 +31,8 @@ const Homepage = () => (
       </Breadcrumb>
       
       <div className="site-layout-content">
-       {/* <Route exact path="/" component={BookTable}/>  */}
-       {/* <Route path="/New" component={Newform}/> */}
+       <Route exact path="/" component={BookTable}/> 
+       <Route path="/New" component={Newform}/>
        
         </div>
     </Content>

@@ -3,6 +3,9 @@ services:
    web:
        build: .
        ports:
-           - "3333:3333"
+           - "8080:8080"
+       env_file:
+           - .env
        environment:
-           REACT_APP_GO_URL: "mongodb+srv://mongo:LOsLH6a40mcR0QzB@cluster0.esomu.mongodb.net/?retryWrites=true&w=majority"
+           - REACT_APP_GO_URL= "mongodb+srv://mongo:LOsLH6a40mcR0QzB@cluster0.esomu.mongodb.net/?retryWrites=true&w=majority"
+           - CHOKIDAR_USEPOLLING=true

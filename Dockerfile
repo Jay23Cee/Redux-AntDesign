@@ -5,7 +5,7 @@ COPY go.sum .
 COPY . .
 RUN go get -d -v
 RUN go build -v
-CMD ["go","run","."]
+
 
 
 FROM node:alpine
@@ -15,7 +15,8 @@ COPY package-lock.json ./
 COPY ./ ./
 
 RUN npm i
-ENV REACT_APP_URL="http://localhost:80"
-EXPOSE  3000
+RUN npm run build
+ENV REACT_APP_URL="http://localhost:8080"
+EXPOSE  8080
 # start app
-CMD ["npm", "run", "start"]
+CMD ["npm run dev"]

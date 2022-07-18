@@ -27,6 +27,7 @@ func makeconnection(w http.ResponseWriter, r *http.Request) *mongo.Client {
 	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 	w.Header().Set("Access-Control-Expose-Headers", "Authorization")
 	url := os.Getenv("REACT_APP_GO_URL")
+	url = "mongodb+srv://mongo:LOsLH6a40mcR0QzB@cluster0.esomu.mongodb.net/?retryWrites=true&w=majority"
 	clientOptions := options.Client().ApplyURI(url)
 	ctx := context_withouttime()
 	client, err := mongo.Connect(ctx, clientOptions)
