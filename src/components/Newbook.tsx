@@ -1,12 +1,12 @@
 import { Form, Input, Menu, Breadcrumb, Button, message } from 'antd';
 import React from 'react';
 
-import {Book} from '../store/books/books';
+import {Book} from '../books/books';
 
 
-import {Link} from "react-router-dom"
+import {Link} from "react-router-dom"; 
 import axios from 'axios';
-import { add_book } from '../store/books/bookReducer';
+import { add_book } from '../books/data_handler';
 
 
 const layout = {

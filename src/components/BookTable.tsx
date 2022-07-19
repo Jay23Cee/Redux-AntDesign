@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form, Typography } from 'antd';
-import {Book} from '../store/books/books';
-import {  delete_book, edit_book, getbooks } from '../store/books/bookReducer';
-
-;
-
+import {Book} from '../books/books';
+import {  delete_book, edit_book, getbooks } from  '../books/data_handler';
 
 
 export interface BookTableProps{

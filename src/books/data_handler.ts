@@ -1,13 +1,4 @@
-import { Book } from "../books/books"
-import {v4 as uuidv4} from 'uuid';
-import {BookActionTypes} from "../books/actionType"
-import {
-    FETCH_BOOK,
-    EDIT_BOOK,
-    DELETE_BOOK,
-    NEW_BOOK,
-
-} from  "../books/actionType"
+import { Book } from "./books"
 import "setimmediate"
 import axios from "axios";
 
@@ -93,44 +84,3 @@ export async function add_book(JSON_string:string, values:Book) {
      });
 
 }
-
-  const BookRedeucerDefaultState: Book[] =[];
-
-
-
-/************************
- ******* BOOKREDUCER ****
- ************************/
-const bookReducer =(state = BookRedeucerDefaultState, action: BookActionTypes): Book[] =>{
-
-
-    switch(action.type){
-        case FETCH_BOOK:
-            return { ...state, ...action.book}
-        case EDIT_BOOK:   
-            return state.map(books => {
-                if (books.ID === action.book.ID){
-                    return {
-                        ...books,
-                        ...action.book
-                    };
-
-                }else{
-                    return books;
-                }
-            })
-        case DELETE_BOOK:
-            return state.filter(({ ID}) => ID !== action.id);
-        case NEW_BOOK:
-            return [...state, action.book]
-
-        default:
-            return state;
-
-
-    }
-
-}
-
-
-export {bookReducer}
